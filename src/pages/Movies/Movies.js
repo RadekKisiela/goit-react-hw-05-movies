@@ -6,7 +6,7 @@ import css from './Movies.module.css';
 export default function Movies() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedMovie] = useState(null);
+  // const [selectedMovie] = useState(null);
 
   const handleSearchInputChange = event => {
     setSearchQuery(event.target.value);
@@ -45,7 +45,7 @@ export default function Movies() {
           </li>
         ))}
       </ul>
-      {selectedMovie && (
+      {/* {selectedMovie && (
         <div>
           <h2>{selectedMovie.title || selectedMovie.name}</h2>
           <img
@@ -55,7 +55,7 @@ export default function Movies() {
           />
           <p>{selectedMovie.overview}</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

@@ -1,22 +1,18 @@
-import './styles.js';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Movies from './pages/Movies/Movies';
-import { Container, Nav } from './styles.js';
+import MovieDetails from './pages/MovieDetails/MovieDetails';
+import Navigation from './components/Navigation/Navigation';
 
 function App() {
   return (
     <div>
-      <Container>
-        <Nav>
-          <Link to="/">Home</Link>
-          <Link to="/movies">Movies</Link>
-        </Nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
-        </Routes>
-      </Container>
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/movies/:movieId" element={<MovieDetails />} />
+      </Routes>
     </div>
   );
 }
