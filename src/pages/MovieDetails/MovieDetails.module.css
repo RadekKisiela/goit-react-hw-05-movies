@@ -16,14 +16,10 @@
   margin-bottom: 20px;
 }
 
-.movieInfoContainer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
 .filmData {
   margin-left: 20px;
 }
+
 .movieOverview {
   flex: 1;
   margin-left: 20px;

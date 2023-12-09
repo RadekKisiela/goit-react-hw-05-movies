@@ -8,7 +8,7 @@ export default function Navigation() {
       <NavLink
         to="/"
         className={css.navLink}
-        // activeClassName={css.navLinkActive}
+        //activeClassName={css.navLinkActive}
       >
         Home
       </NavLink>
