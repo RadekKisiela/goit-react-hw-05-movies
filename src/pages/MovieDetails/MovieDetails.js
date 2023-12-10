@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import css from './MovieDetails.module.css';
 import Cast from '../../components/Cast/Cast';
+import Reviews from '../../components/Reviews/Reviews';
+import ButtonGoBack from '../../components/ButtonGoBack/ButtonGoBack';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState('');
   const [showCast, setShowCast] = useState(false);
+  const [showReviews, setShowReviews] = useState(false);
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -25,36 +28,55 @@ export default function MovieDetails() {
 
   const handleCastClick = () => {
     setShowCast(!showCast);
+    setShowReviews(false);
+  };
+
+  const handleReviewsClick = () => {
+    setShowReviews(!showReviews);
+    setShowCast(false);
   };
 
   return (
     <div className={css.movieDetailsContainer}>
+      <ButtonGoBack />
       {movieDetails ? (
         <div className={css.movieInfoContainer}>
-          <h1 className={css.movieTitle}>
-            {movieDetails.title || movieDetails.name}
-          </h1>
-          <div>
+          <div className={css.movieContent}>
             <img
               src={`https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`}
               alt={movieDetails.title || movieDetails.name}
               className={css.moviePoster}
-            />
+            />{' '}
+            <div className={css.filmData}>
+              {' '}
+              <h1 className={css.movieTitle}>
+                {movieDetails.title || movieDetails.name}
+              </h1>
+              <p>Release date: {movieDetails.release_date}</p>
+              <p>Rating: {movieDetails.vote_average}</p>
+              <p>Overview: {movieDetails.overview}</p>
+              <p>
+                Genres:{' '}
+                {movieDetails.genres &&
+                  movieDetails.genres.map(genre => genre.name).join(', ')}
+              </p>
+            </div>
           </div>
         </div>
       ) : (
         <p>Loading...</p>
       )}
-      <div className={css.filmData}>
-        <p>Release date: {movieDetails.release_date}</p>
-        <p>Rating: {movieDetails.vote_average}</p>
-        <p>Vote count: {movieDetails.vote_count}</p>
-        <p>Overview: {movieDetails.overview}</p>
-      </div>
-      <div>
-        <button onClick={handleCastClick}>Cast</button>
+
+      <div className={css.buttonGroup}>
+        <button className={css.button} onClick={handleCastClick}>
+          Cast
+        </button>
+        <button className={css.button} onClick={handleReviewsClick}>
+          Reviews
+        </button>
       </div>
       {showCast && <Cast movieId={movieId} />}
+      {showReviews && <Reviews movieId={movieId} />}
     </div>
   );
 }

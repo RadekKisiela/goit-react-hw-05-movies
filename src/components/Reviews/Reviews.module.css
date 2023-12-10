@@ -1,0 +1,23 @@
+.reviewsContainer {
+  margin: 20px;
+}
+
+.reviewsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.reviewItem {
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.authorHeader {
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.contentParagraph {
+  color: #333;
+}
