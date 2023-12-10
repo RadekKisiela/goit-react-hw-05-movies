@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import css from './Cast.module.css';
@@ -29,7 +29,7 @@ const Cast = () => {
         {castData.map(({ id, name, profile_path, character }) => (
           <li key={id} className={css.castItem}>
             {' '}
-            <Link to={`/movies/${movieId}/cast`}>
+            <NavLink to={`/movies/${movieId}/cast`}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${profile_path}`}
                 alt={name}
@@ -37,7 +37,7 @@ const Cast = () => {
               />
               <p className={css.castName}>{name}</p>
               <p className={css.castCharacter}>Character: {character}</p>{' '}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>

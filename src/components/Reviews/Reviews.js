@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import css from './Reviews.module.css';
 
@@ -27,10 +27,10 @@ const Reviews = () => {
       <ul className={css.reviewsList}>
         {reviews.map(({ id, author, content }) => (
           <li key={id} className={css.reviewItem}>
-            <Link to={`/movies/${movieId}/reviews`}>
+            <NavLink to={`/movies/${movieId}/reviews`}>
               <h2 className={css.authorHeader}>Author: {author}</h2>
               <p className={css.contentParagraph}>{content}</p>
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>
