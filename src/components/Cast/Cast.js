@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import css from './Cast.module.css';
+import { fetchCastData } from 'components/FetchFunctions/FetchFunctions';
 
 const Cast = () => {
   const { movieId } = useParams();
   const [castData, setCastData] = useState([]);
 
   useEffect(() => {
-    const fetchCastData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=9b4d34572252a172944be66a3c78e6d5&language=en-US`
-        );
-        setCastData(response.data.cast);
+        const castData = await fetchCastData(movieId);
+
+        if (castData) {
+          setCastData(castData);
+        } else {
+          console.error('Error fetching cast: castData is undefined');
+        }
       } catch (error) {
         console.error('Error fetching cast', error);
       }
     };
-    fetchCastData();
+    fetchData();
   }, [movieId]);
-
   return (
     <div className={css.castContainer}>
       <ul className={css.castList}>

@@ -1,39 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import css from './Reviews.module.css';
+import { fetchReviews } from 'components/FetchFunctions/FetchFunctions';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=9b4d34572252a172944be66a3c78e6d5&language=en-US&page=1`
-        );
-        setReviews(response.data.results);
-        console.log(response.data.results);
+        const reviewsData = await fetchReviews(movieId);
+        setReviews(reviewsData);
       } catch (error) {
         console.error('Error fetching reviews', error);
       }
     };
-    fetchReviews();
+    fetchData();
   }, [movieId]);
   return (
     <div className={css.reviewsContainer}>
-      <ul className={css.reviewsList}>
-        {reviews.map(({ id, author, content }) => (
-          <li key={id} className={css.reviewItem}>
-            <NavLink to={`/movies/${movieId}/reviews`}>
-              <h2 className={css.authorHeader}>Author: {author}</h2>
-              <p className={css.contentParagraph}>{content}</p>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      {reviews.length === 0 ? (
+        <p>No reviews found for this movie.</p>
+      ) : (
+        <ul className={css.reviewsList}>
+          {reviews.map(({ id, author, content }) => (
+            <li key={id} className={css.reviewItem}>
+              <NavLink to={`/movies/${movieId}/reviews`}>
+                <h2 className={css.authorHeader}>Author: {author}</h2>
+                <p className={css.contentParagraph}>{content}</p>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

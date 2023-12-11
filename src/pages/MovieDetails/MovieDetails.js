@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import css from './MovieDetails.module.css';
 import Cast from '../../components/Cast/Cast';
 import Reviews from '../../components/Reviews/Reviews';
 import ButtonGoBack from '../../components/ButtonGoBack/ButtonGoBack';
+import { fetchMovieDetails } from 'components/FetchFunctions/FetchFunctions';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -12,18 +12,16 @@ export default function MovieDetails() {
   const [showCast, setShowCast] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
   useEffect(() => {
-    const fetchMovieDetails = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${movieId}?api_key=9b4d34572252a172944be66a3c78e6d5`
-        );
-        setMovieDetails(response.data);
+        const data = await fetchMovieDetails(movieId, 'movie');
+        setMovieDetails(data);
       } catch (error) {
         console.error('Error fetching movie details: ', error);
       }
     };
 
-    fetchMovieDetails();
+    fetchData();
   }, [movieId]);
 
   const handleCastClick = () => {
