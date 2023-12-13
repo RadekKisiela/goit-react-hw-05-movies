@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import css from './MovieDetails.module.css';
-import Cast from '../../components/Cast/Cast';
-import Reviews from '../../components/Reviews/Reviews';
 import { fetchMovieDetails } from 'components/FetchFunctions/FetchFunctions';
 
 export default function MovieDetails() {
@@ -10,7 +8,6 @@ export default function MovieDetails() {
   const [movieDetails, setMovieDetails] = useState('');
   const [showCast, setShowCast] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
-  const [activeSection, setActiveSection] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,32 +22,17 @@ export default function MovieDetails() {
   }, [movieId]);
 
   const handleCastClick = () => {
-    setShowCast(prevShowCast => {
-      if (prevShowCast && activeSection === 'cast') {
-        setActiveSection(null);
-        return false;
-      } else {
-        setShowReviews(false);
-        setActiveSection('cast');
-        return true;
-      }
-    });
+    setShowCast(!showCast);
+    setShowReviews(false);
   };
 
   const handleReviewsClick = () => {
-    setShowReviews(prevShowReviews => {
-      if (prevShowReviews && activeSection === 'reviews') {
-        setActiveSection(null);
-        return false;
-      } else {
-        setShowCast(false);
-        setActiveSection('reviews');
-        return true;
-      }
-    });
+    setShowReviews(!showReviews);
+    setShowCast(false);
   };
+
   const location = useLocation();
-  const from = location?.state?.from || '/';
+  const from = location.state?.from || '/';
 
   return (
     <div className={css.movieDetailsContainer}>
@@ -79,26 +61,24 @@ export default function MovieDetails() {
                   movieDetails.genres.map(genre => genre.name).join(', ')}
               </p>
             </div>
-          </div>{' '}
+          </div>
         </div>
       ) : (
         <p>Loading...</p>
       )}
 
-      <div className={css.linkGroup}>
-        <Link to={`cast`} className={css.link} onMouseDown={handleCastClick}>
+      <div className={css.buttonGroup}>
+        <Link to={'cast'} className={css.button} onClick={handleCastClick}>
           Cast
         </Link>
         <Link
-          to={`reviews`}
-          className={css.link}
-          onMouseDown={handleReviewsClick}
+          to={'reviews'}
+          className={css.button}
+          onClick={handleReviewsClick}
         >
           Reviews
         </Link>
       </div>
-      {showCast && <Cast movieId={movieId} />}
-      {showReviews && <Reviews movieId={movieId} />}
       <Outlet />
     </div>
   );

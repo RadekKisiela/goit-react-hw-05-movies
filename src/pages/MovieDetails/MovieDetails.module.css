@@ -53,13 +53,13 @@
   margin-right: 0;
 }
 
-.linkGroup {
+.buttonGroup {
   display: flex;
   justify-content: space-around;
   margin: 20px;
 }
 
-.link {
+.button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -70,7 +70,7 @@
   text-decoration: none;
 }
 
-.link:hover {
+.button:hover {
   background-color: #0056b3;
 }
 
@@ -91,4 +91,9 @@
 }
 .linkGoBack:hover {
   background-color: #0056b3;
+}
+
+.link {
+  text-decoration: none;
+  color: #fff;
 }
