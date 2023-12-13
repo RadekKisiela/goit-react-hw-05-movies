@@ -32,7 +32,7 @@ export default function MovieDetails() {
   };
 
   const location = useLocation();
-  const from = location.state?.from || '/';
+  const from = location.state?.form || '/';
 
   return (
     <div className={css.movieDetailsContainer}>

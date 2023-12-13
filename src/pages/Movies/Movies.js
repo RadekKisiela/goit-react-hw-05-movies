@@ -6,7 +6,6 @@ import css from './Movies.module.css';
 export default function Movies() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  // const [selectedMovie] = useState(null);
 
   const handleSearchInputChange = event => {
     setSearchQuery(event.target.value);
@@ -39,23 +38,18 @@ export default function Movies() {
       <ul className={css.movieList}>
         {searchResults.map(movie => (
           <li key={movie.id} className={css.movieItem}>
-            <Link to={`/movies/${movie.id}`} className={css.movieLink}>
+            <Link
+              to={{
+                pathname: `/movies/${movie.id}`,
+                state: { from: '/movies' },
+              }}
+              className={css.movieLink}
+            >
               <h2 className={css.movieTitle}>{movie.title || movie.name}</h2>
             </Link>
           </li>
         ))}
       </ul>
-      {/* {selectedMovie && (
-        <div>
-          <h2>{selectedMovie.title || selectedMovie.name}</h2>
-          <img
-            src={`https://image.tmdb.org/t/p/w300${selectedMovie.poster_path}`}
-            alt={selectedMovie.title || selectedMovie.name}
-            className={css.moviePoster}
-          />
-          <p>{selectedMovie.overview}</p>
-        </div>
-      )} */}
     </div>
   );
 }
