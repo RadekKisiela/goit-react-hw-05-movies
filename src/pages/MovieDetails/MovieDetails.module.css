@@ -53,13 +53,13 @@
   margin-right: 0;
 }
 
-.buttonGroup {
+.linkGroup {
   display: flex;
   justify-content: space-around;
   margin: 20px;
 }
 
-.button {
+.link {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -67,8 +67,28 @@
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
+  text-decoration: none;
 }
 
-.button:hover {
+.link:hover {
+  background-color: #0056b3;
+}
+
+.linkGoBack {
+  display: flex;
+  justify-content: center;
+  background-color: #007bff;
+  margin: 20px;
+  height: 20px;
+  width: 80px;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.linkGoBack:hover {
   background-color: #0056b3;
 }
